@@ -23,13 +23,12 @@ struct MoodAppLogic {
         
     }
     
-    static func getMoodHistory() {
-        let history = UserDefaults.standard.dictionary(forKey: "moodHistory") ?? [:]
-        print(history)
-        
+    static func getMoodHistory() -> [String: [String: Any]] {
+        let historyDict = UserDefaults.standard.dictionary(forKey: "moodHistory") as? [String: [String: Any]] ?? [:]
+        return historyDict
     }
     
-    static func clearHistory() {
+    static func clearHistory() -> Void {
         UserDefaults.standard.removeObject(forKey: "moodHistory")
     }
     

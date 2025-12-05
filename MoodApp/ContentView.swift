@@ -135,7 +135,7 @@ struct ContentView: View {
             }
         }
         .sheet(isPresented: $showHistory) {
-            HistoryView()
+            HistoryView(isVisible: $showHistory)
         }
         .sheet(isPresented: $showAbout) {
             AboutView(isVisible: $showAbout)
