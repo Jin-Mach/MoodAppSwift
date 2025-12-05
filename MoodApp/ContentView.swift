@@ -14,7 +14,7 @@ struct ContentView: View {
     
     @State private var energy: Double = 0.0
     @State private var note: String = ""
-    @State private var noteCount: Int = 100
+    @State private var noteCount: Int = 0
     
     var body: some View {
         NavigationStack {
@@ -91,11 +91,9 @@ struct ContentView: View {
                         }
                     }
                 
-                Text("délka: 0/\(noteCount)")
+                Text("délka: \(noteCount)/100")
                     .frame(maxWidth: .infinity, alignment: .trailing)
                     .padding()
-                
-                Spacer()
             }
             .padding()
             
@@ -109,7 +107,7 @@ struct ContentView: View {
                 
                 ToolbarItem(placement: .navigationBarLeading) {
                     Button {
-                        showHistory = true
+                        showHistory.toggle()
                     } label: {
                         Image(systemName: "clock.arrow.circlepath")
                     }
@@ -117,7 +115,7 @@ struct ContentView: View {
                 
                 ToolbarItem(placement: .navigationBarTrailing) {
                     Button {
-                        showAbout = true
+                        showAbout.toggle()
                     } label: {
                         Image(systemName: "info.circle")
                     }
@@ -128,7 +126,7 @@ struct ContentView: View {
             HistoryView()
         }
         .sheet(isPresented: $showAbout) {
-            AboutView()
+            AboutView(isVisible: $showAbout)
         }
     }
 }
