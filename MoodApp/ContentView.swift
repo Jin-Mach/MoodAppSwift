@@ -20,6 +20,8 @@ struct ContentView: View {
     var body: some View {
         NavigationStack {
             
+            Spacer()
+            
             HStack {
                 Image(systemName: "clock")
                     .font(Font.largeTitle)
@@ -35,35 +37,38 @@ struct ContentView: View {
                     moodValue = -1
                 } label: {
                     Text("😢")
-                        .font(.largeTitle)
+                        .font(.system(size: 60))
+                        .frame(maxWidth: .infinity)
+                        .aspectRatio(1, contentMode: .fit)
                 }
                 .background(moodValue == -1 ? Color.red : Color.clear)
                 .foregroundColor(moodValue == -1 ? Color.white: Color.primary)
                 .cornerRadius(10)
-                .padding()
                 
                 Button {
                     moodValue = 0
                 } label: {
                     Text("😐")
-                        .font(Font.largeTitle)
+                        .font(.system(size: 60))
+                        .frame(maxWidth: .infinity)
+                        .aspectRatio(1, contentMode: .fit)
                 }
                 .background(moodValue == 0 ? Color.red : Color.clear)
                 .foregroundColor(moodValue == 0 ? Color.white: Color.primary)
                 .cornerRadius(10)
-                .padding()
                 
                 Button{
                     moodValue = 1
                 } label: {
                     Text("😃")
-                        .font(Font.largeTitle)
+                        .font(.system(size: 60))
+                        .frame(maxWidth: .infinity)
+                        .aspectRatio(1, contentMode: .fit)
                         
                 }
                 .background(moodValue == 1 ? Color.red : Color.clear)
                 .foregroundColor(moodValue == 1 ? Color.white: Color.primary)
                 .cornerRadius(10)
-                .padding()
                 
             }
             .padding()
@@ -88,7 +93,7 @@ struct ContentView: View {
                     .font(.headline)
                 
                 TextEditor(text: $note)
-                    .frame(minHeight: 200)
+                    .frame(height: 100)
                     .padding(8)
                     .background(
                         RoundedRectangle(cornerRadius: 10)
@@ -115,6 +120,8 @@ struct ContentView: View {
             .font(Font.title)
             .padding()
             
+            Spacer()
+            
             .toolbar {
                 
                 ToolbarItem(placement: .navigationBarLeading) {
@@ -140,6 +147,7 @@ struct ContentView: View {
         .sheet(isPresented: $showAbout) {
             AboutView(isVisible: $showAbout)
         }
+        .padding()
     }
     
     func resetVariables() -> Void {

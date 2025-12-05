@@ -13,6 +13,11 @@ struct AboutView: View {
     
     var body: some View {
         VStack {
+            
+            Text("O aplikaci")
+                .font(.title)
+                .padding()
+            
             Form {
                 HStack { Text("App Name:"); Spacer(); Text("Internet Speed Test") }
                 HStack { Text("Version:"); Spacer(); Text("1.0") }

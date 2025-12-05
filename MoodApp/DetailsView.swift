@@ -38,8 +38,8 @@ struct DetailsView: View {
                     Text("Poznámka:")
                         .font(.headline)
                     TextEditor(text: $noteText)
-                        .frame(minHeight: 200)
-                        .padding(8)
+                        .frame(height: 100)
+                        .padding()
                         .background(
                             RoundedRectangle(cornerRadius: 10)
                                 .stroke(Color.gray.opacity(0.5))

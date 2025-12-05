@@ -12,8 +12,10 @@ struct HistoryView: View {
     @Binding var isVisible: Bool
     
     @State private var history: [String: Any] = [:]
+    @State private var showDelete: Bool = false
     
     private let emojiMap: [Int: String] = [-1: "😢", 0: "😐", 1: "😃"]
+    private var availableRecords: Bool { history.isEmpty }
     
     var body: some View {
         NavigationView {
@@ -50,8 +52,15 @@ struct HistoryView: View {
                 Spacer()
                 
                 Button("Smazat historii") {
-                    MoodAppLogic.clearHistory()
-                    history = [:] // ihned aktualizujeme UI
+                    showDelete = true
+                }
+                .disabled(availableRecords)
+                .alert("Opravdu smazat?", isPresented: $showDelete) {
+                    Button("Ano", role: .destructive) {
+                        MoodAppLogic.clearHistory()
+                        history = [:]
+                    }
+                    Button("Ne", role: .cancel) { }
                 }
                 .padding()
                 
@@ -60,7 +69,13 @@ struct HistoryView: View {
                 }
                 .padding()
             }
-            .navigationTitle("Historie")
+            .navigationTitle("")
+            .toolbar {
+                    ToolbarItem(placement: .principal) {
+                        Text("Historie")
+                            .font(.headline.bold())
+                    }
+                }
             .onAppear {
                 history = MoodAppLogic.getMoodHistory()
             }
