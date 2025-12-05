@@ -12,6 +12,7 @@ struct ContentView: View {
     @State private var showHistory: Bool = false
     @State private var showAbout: Bool = false
     
+    @State private var moodValue: Int? = nil
     @State private var energy: Double = 0.0
     @State private var note: String = ""
     @State private var noteCount: Int = 0
@@ -31,28 +32,37 @@ struct ContentView: View {
             HStack {
             
                 Button {
-                    print("sad")
+                    moodValue = -1
                 } label: {
                     Text("😢")
                         .font(.largeTitle)
                 }
+                .background(moodValue == -1 ? Color.red : Color.clear)
+                .foregroundColor(moodValue == -1 ? Color.white: Color.primary)
+                .cornerRadius(10)
                 .padding()
                 
                 Button {
-                    print("neutral")
+                    moodValue = 0
                 } label: {
                     Text("😐")
                         .font(Font.largeTitle)
                 }
+                .background(moodValue == 0 ? Color.red : Color.clear)
+                .foregroundColor(moodValue == 0 ? Color.white: Color.primary)
+                .cornerRadius(10)
                 .padding()
                 
                 Button{
-                    print("happy")
+                    moodValue = 1
                 } label: {
                     Text("😃")
                         .font(Font.largeTitle)
                         
                 }
+                .background(moodValue == 1 ? Color.red : Color.clear)
+                .foregroundColor(moodValue == 1 ? Color.white: Color.primary)
+                .cornerRadius(10)
                 .padding()
                 
             }
@@ -98,8 +108,10 @@ struct ContentView: View {
             .padding()
             
             Button("Zapsat") {
-                print("zapsat")
+                MoodAppLogic.setMoodHistory(mood: moodValue!, energy: Int(energy), note: note)
+                resetVariables()
             }
+            .disabled(moodValue == nil)
             .font(Font.title)
             .padding()
             
@@ -129,6 +141,12 @@ struct ContentView: View {
             AboutView(isVisible: $showAbout)
         }
     }
+    
+    func resetVariables() -> Void {
+            moodValue = nil
+            energy = 0.0
+            note = ""
+        }
 }
 
 #Preview {
