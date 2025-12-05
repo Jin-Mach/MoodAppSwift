@@ -17,43 +17,60 @@ struct DetailsView: View {
     @State private var noteText: String = "Není zadána"
     
     var body: some View {
-        VStack {
-            Form {
-                HStack {
-                    Text("Datum:")
-                    Spacer()
-                    Text(formattedDate(from: date))
+        NavigationView {
+            VStack {
+                
+                Form {
+                    Section {
+                        HStack {
+                            Text("Datum")
+                            Spacer()
+                            Text(formattedDate(from: date))
+                                .foregroundColor(.secondary)
+                        }
+                        
+                        HStack {
+                            Text("Nálada")
+                            Spacer()
+                            Text(emojiMap[record?["mood"] as? Int ?? 0] ?? "–")
+                                .font(.title3)
+                        }
+                        
+                        HStack {
+                            Text("Energie")
+                            Spacer()
+                            Text("\(record?["energy"] as? Int ?? 0)%")
+                                .foregroundColor(.secondary)
+                        }
+                    }
+                    
+                    Section(header: Text("Poznámka")) {
+                        if noteText == "Není zadána" {
+                            Text("Není zadána")
+                                .foregroundColor(.secondary)
+                        } else {
+                            ScrollView {
+                                Text(noteText)
+                                    .frame(maxWidth: .infinity, alignment: .leading)
+                                    .padding(.vertical, 6)
+                            }
+                        }
+                    }
                 }
-                HStack {
-                    Text("Nálada:")
-                    Spacer()
-                    Text(emojiMap[record?["mood"] as? Int ?? 0] ?? "–")
+                .listStyle(.insetGrouped)
+                
+                Button("Zavřít") {
+                    isVisible.toggle()
                 }
-                HStack {
-                    Text("Energie:")
-                    Spacer()
-                    Text("\(record?["energy"] as? Int ?? 0)%")
-                }
-                VStack(alignment: .leading) {
-                    Text("Poznámka:")
-                        .font(.headline)
-                    TextEditor(text: $noteText)
-                        .frame(height: 100)
-                        .padding()
-                        .background(
-                            RoundedRectangle(cornerRadius: 10)
-                                .stroke(Color.gray.opacity(0.5))
-                        )
-                }
+                .buttonStyle(.borderedProminent)
+                .controlSize(.large)
+                .padding(.bottom)
             }
-            
-            Button("Zavřít") {
-                isVisible.toggle()
+            .navigationTitle("Detail záznamu")
+            .navigationBarTitleDisplayMode(.inline)
+            .onAppear {
+                noteText = record?["note"] as? String ?? "Není zadána"
             }
-            .padding()
-        }
-        .onAppear {
-            noteText = record?["note"] as? String ?? "Není zadána"
         }
     }
 }

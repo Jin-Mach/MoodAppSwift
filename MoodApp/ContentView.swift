@@ -20,16 +20,17 @@ struct ContentView: View {
     var body: some View {
         NavigationStack {
             
-            Spacer()
-            
             HStack {
-                Image(systemName: "clock")
+                Image(systemName: "face.smiling")
                     .font(Font.largeTitle)
                 
                 Text("Mood App")
                     .font(.largeTitle.bold())
             }
-            .padding()
+            .padding(.top, 20)
+            
+            Spacer()
+                .frame(height: 60)
             
             HStack {
             
@@ -71,7 +72,7 @@ struct ContentView: View {
                 .cornerRadius(10)
                 
             }
-            .padding()
+            .padding(.horizontal)
             
             VStack {
                 HStack {
@@ -110,17 +111,21 @@ struct ContentView: View {
                     .frame(maxWidth: .infinity, alignment: .trailing)
                     .padding()
             }
-            .padding()
+            .padding(.horizontal)
             
             Button("Zapsat") {
                 MoodAppLogic.setMoodHistory(mood: moodValue!, energy: Int(energy), note: note)
                 resetVariables()
             }
             .disabled(moodValue == nil)
-            .font(Font.title)
-            .padding()
-            
-            Spacer()
+            .controlSize(.large)
+            .font(.title2.bold())
+            .padding(.horizontal)
+            .padding(.vertical, 12)
+            .background(Color.blue.opacity(moodValue == nil ? 0.3 : 1))
+            .foregroundColor(.white)
+            .cornerRadius(12)
+            .padding(.top, 10)
             
             .toolbar {
                 
@@ -147,7 +152,6 @@ struct ContentView: View {
         .sheet(isPresented: $showAbout) {
             AboutView(isVisible: $showAbout)
         }
-        .padding()
     }
     
     func resetVariables() -> Void {

@@ -19,7 +19,8 @@ struct HistoryView: View {
     
     var body: some View {
         NavigationView {
-            VStack {
+            VStack(spacing: 10) {
+                
                 if history.isEmpty {
                     Text("Žádné záznamy")
                         .font(.title)
@@ -39,14 +40,13 @@ struct HistoryView: View {
                                     if let moodNumber = results["mood"] as? NSNumber,
                                        let emoji = emojiMap[moodNumber.intValue] {
                                         Text(emoji)
-                                    } else {
-                                        Text("–")
                                     }
                                 }
                                 .padding(.vertical, 4)
                             }
                         }
                     }
+                    .listStyle(.insetGrouped)
                 }
                 
                 Spacer()
@@ -54,6 +54,9 @@ struct HistoryView: View {
                 Button("Smazat historii") {
                     showDelete = true
                 }
+                .buttonStyle(.borderedProminent)
+                .controlSize(.large)
+                .tint(.red)
                 .disabled(availableRecords)
                 .alert("Opravdu smazat?", isPresented: $showDelete) {
                     Button("Ano", role: .destructive) {
@@ -62,20 +65,20 @@ struct HistoryView: View {
                     }
                     Button("Ne", role: .cancel) { }
                 }
-                .padding()
+                .padding(.bottom, 4)
                 
                 Button("Zavřít") {
                     isVisible.toggle()
                 }
-                .padding()
+                .buttonStyle(.borderedProminent)
+                .padding(.bottom)
             }
-            .navigationTitle("")
             .toolbar {
-                    ToolbarItem(placement: .principal) {
-                        Text("Historie")
-                            .font(.headline.bold())
-                    }
+                ToolbarItem(placement: .principal) {
+                    Text("Historie")
+                        .font(.headline.bold())
                 }
+            }
             .onAppear {
                 history = MoodAppLogic.getMoodHistory()
             }
