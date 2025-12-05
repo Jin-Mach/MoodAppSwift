@@ -11,7 +11,7 @@ struct HistoryView: View {
     
     @Binding var isVisible: Bool
     
-    @State private var history: [String: Any] = [:]
+    @State private var history: [String: [String: Any]] = [:]
     @State private var showDelete: Bool = false
     
     private let emojiMap: [Int: String] = [-1: "😢", 0: "😐", 1: "😃"]
@@ -26,8 +26,8 @@ struct HistoryView: View {
                         .font(.title)
                         .padding()
                 } else {
-                    List(history.keys.sorted(), id: \.self) { key in
-                        if let results = history[key] as? [String: Any] {
+                    List(history.keys.sorted(by: >), id: \.self) { key in
+                        if let results = history[key] {
                             NavigationLink(destination: DetailsView(
                                 isVisible: .constant(true),
                                 record: results,
@@ -37,8 +37,8 @@ struct HistoryView: View {
                                 HStack {
                                     Text(formattedDate(from: key))
                                     Spacer()
-                                    if let moodNumber = results["mood"] as? NSNumber,
-                                       let emoji = emojiMap[moodNumber.intValue] {
+                                    if let moodNumber = results["mood"] as? Int,
+                                       let emoji = emojiMap[moodNumber] {
                                         Text(emoji)
                                     }
                                 }
