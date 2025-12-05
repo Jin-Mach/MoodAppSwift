@@ -22,7 +22,7 @@ struct HistoryView: View {
             VStack(spacing: 10) {
                 
                 if history.isEmpty {
-                    Text("Žádné záznamy")
+                    Text("No records")
                         .font(.title)
                         .padding()
                 } else {
@@ -51,23 +51,23 @@ struct HistoryView: View {
                 
                 Spacer()
                 
-                Button("Smazat historii") {
+                Button("Delete History") {
                     showDelete = true
                 }
                 .buttonStyle(.borderedProminent)
                 .controlSize(.large)
                 .tint(.red)
                 .disabled(availableRecords)
-                .alert("Opravdu smazat?", isPresented: $showDelete) {
-                    Button("Ano", role: .destructive) {
+                .alert("Are you sure?", isPresented: $showDelete) {
+                    Button("Yes", role: .destructive) {
                         MoodAppLogic.clearHistory()
                         history = [:]
                     }
-                    Button("Ne", role: .cancel) { }
+                    Button("No", role: .cancel) { }
                 }
                 .padding(.bottom, 4)
                 
-                Button("Zavřít") {
+                Button("Close") {
                     isVisible.toggle()
                 }
                 .buttonStyle(.borderedProminent)
@@ -75,7 +75,7 @@ struct HistoryView: View {
             }
             .toolbar {
                 ToolbarItem(placement: .principal) {
-                    Text("Historie")
+                    Text("History")
                         .font(.headline.bold())
                 }
             }

@@ -14,7 +14,7 @@ struct AboutView: View {
     var body: some View {
         VStack {
             
-            Text("O aplikaci")
+            Text("About")
                 .font(.title)
                 .padding()
             
@@ -26,13 +26,13 @@ struct AboutView: View {
             }
 
             Text("""
-                Mood App je jednoduchá aplikace, která ti umožňuje každý den zapisovat svoji náladu, úroveň energie a krátké poznámky.
-                 Pomáhá ti sledovat, jak se cítíš a jak se mění tvoje denní rozpoložení.
+                Mood App is a simple application that allows you to record your mood, energy level, and short notes every day.
+                It helps you track how you feel and how your daily mood changes.
                 """)
                 .multilineTextAlignment(.leading)
                 .padding()
             
-            Button("Zavřít") {
+            Button("Close") {
                 isVisible.toggle()
             }
             .buttonStyle(.borderedProminent)

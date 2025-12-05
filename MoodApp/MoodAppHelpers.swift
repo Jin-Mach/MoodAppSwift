@@ -9,7 +9,7 @@ import Foundation
 
 func formattedDate(from key: String) -> String {
     let formatter = DateFormatter()
-    formatter.dateFormat = "dd.MM.yyyy - HH:mm"
+    formatter.dateFormat = "MM/dd/yyyy - HH:mm"
     if let timeInterval = TimeInterval(key) {
         return formatter.string(from: Date(timeIntervalSince1970: timeInterval))
     }

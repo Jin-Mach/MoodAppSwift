@@ -79,7 +79,7 @@ struct ContentView: View {
                     Image(systemName: "bolt.fill")
                         .font(Font.title)
                     
-                    Text("Energie: \(Int(energy)) %")
+                    Text("Energy: \(Int(energy)) %")
                 }
                 .padding()
                 
@@ -90,7 +90,7 @@ struct ContentView: View {
             
             VStack(alignment: .leading) {
                 
-                Text("Poznámky: (nepovinné)")
+                Text("Notes: (optional)")
                     .font(.headline)
                 
                 TextEditor(text: $note)
@@ -107,13 +107,13 @@ struct ContentView: View {
                         }
                     }
                 
-                Text("délka: \(noteCount)/100")
+                Text("length: \(noteCount)/100")
                     .frame(maxWidth: .infinity, alignment: .trailing)
                     .padding()
             }
             .padding(.horizontal)
             
-            Button("Zapsat") {
+            Button("Submit") {
                 MoodAppLogic.setMoodHistory(mood: moodValue!, energy: Int(energy), note: note)
                 resetVariables()
             }

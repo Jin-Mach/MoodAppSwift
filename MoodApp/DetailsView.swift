@@ -14,7 +14,7 @@ struct DetailsView: View {
     let date: String
     let emojiMap: [Int: String]
     
-    @State private var noteText: String = "Není zadána"
+    @State private var noteText: String = "Not provided"
     
     var body: some View {
         NavigationView {
@@ -23,30 +23,30 @@ struct DetailsView: View {
                 Form {
                     Section {
                         HStack {
-                            Text("Datum")
+                            Text("Date")
                             Spacer()
                             Text(formattedDate(from: date))
                                 .foregroundColor(.secondary)
                         }
                         
                         HStack {
-                            Text("Nálada")
+                            Text("Mood")
                             Spacer()
                             Text(emojiMap[record?["mood"] as? Int ?? 0] ?? "–")
                                 .font(.title3)
                         }
                         
                         HStack {
-                            Text("Energie")
+                            Text("Energy")
                             Spacer()
                             Text("\(record?["energy"] as? Int ?? 0)%")
                                 .foregroundColor(.secondary)
                         }
                     }
                     
-                    Section(header: Text("Poznámka")) {
-                        if noteText == "Není zadána" {
-                            Text("Není zadána")
+                    Section(header: Text("Note")) {
+                        if noteText == "Not provided" {
+                            Text("Not provided")
                                 .foregroundColor(.secondary)
                         } else {
                             ScrollView {
@@ -59,17 +59,17 @@ struct DetailsView: View {
                 }
                 .listStyle(.insetGrouped)
                 
-                Button("Zavřít") {
+                Button("Close") {
                     isVisible.toggle()
                 }
                 .buttonStyle(.borderedProminent)
                 .controlSize(.large)
                 .padding(.bottom)
             }
-            .navigationTitle("Detail záznamu")
+            .navigationTitle("Record Details")
             .navigationBarTitleDisplayMode(.inline)
             .onAppear {
-                noteText = record?["note"] as? String ?? "Není zadána"
+                noteText = record?["note"] as? String ?? "Not provided"
             }
         }
     }
